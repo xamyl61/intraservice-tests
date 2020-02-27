@@ -1,0 +1,15 @@
+Запуск тестов:
+
+1) Для запуска тестов необходимо установить python3
+
+2) В проекте есть драйвер для macOS, если нужен для другой платформы, то нужно скачать и заменить.
+   Так же следует исправить путь для драйвера в файле /intraservice-tests/Fixtures/application.py
+
+3) Далее установить и активировать переменную среды, затем установить библиотеки:
+cd intraservice-tests
+virtualenv venv source
+venv/bin/activate
+pip3 install -r requirements.txt
+
+3) Запустить тесты:
+pytest
