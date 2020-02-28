@@ -54,3 +54,5 @@ pip-wheel-metadata/
 
 venv/
 config_variables.py
+screenshots
+browser_logs

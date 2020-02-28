@@ -3,13 +3,18 @@ import time
 import config_variables
 
 
+# def test_google(driver):
+#     driver.get("https://google.com")
+#     time.sleep(5)
+
+
 def test_user_interface(app):
     current_time = ""
     app.authorization.login(config_variables.LOGIN, config_variables.PASSWORD)
-    app.sidebar.check_menu_load(["База знаний", "Сотрудники", "Заявки", "Клиенты", "Активы", "Настройки"])
-    app.sidebar.click_sidebar_item("Настройки")
-    app.settings.click_menu_by_text(["Справочники", "Роли"])
-    current_time = app.base_page.get_current_date_time()
+    # app.sidebar.check_menu_load(["База знаний", "Сотрудники", "Заявки", "Клиенты", "Активы", "Настройки"])
+#     # app.sidebar.click_sidebar_item("Настройки")
+#     # app.settings.click_menu_by_text(["Справочники", "Роли"])
+#     # current_time = app.base_page.get_current_date_time()
 
     # # Создание роли сотрудника
     # app.settings_roles.click_create_btn()

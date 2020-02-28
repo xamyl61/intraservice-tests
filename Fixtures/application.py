@@ -23,11 +23,12 @@ from Pages.tasks import Tasks
 
 class Application:
 
-    def __init__(self):
+    def __init__(self, driver):
 
-        self.wd = webdriver.Chrome("/Users/alexanderonishchenko/Documents/intraservice-tests/chromedriver_mac64")
-        self.wd.implicitly_wait(30)
-        self.wd.maximize_window()
+        # self.wd = webdriver.Chrome("/Users/alexanderonishchenko/Documents/intraservice-tests/chromedriver_mac64")
+        self.wd = driver
+        # self.wd.implicitly_wait(30)
+        # self.wd.maximize_window()
 
         self.helpers = Helpers(self)
         self.authorization = AuthorizationHelper(self)
@@ -49,12 +50,12 @@ class Application:
 
         self.base_url = 'https://is5.intra5.ru/'
 
-    def destroy(self):
-        current_time = self.base_page.get_current_date_time()
-        f = open("../browser_logs/browser_log_{}.txt".format(current_time), "w+")
-        for entry in self.wd.get_log('browser'):
-            f.write("{}\r\n".format(entry))
-        f.close()
-        self.wd.save_screenshot("../screenshots/screenshot_{}.png".format(current_time));
-        self.wd.quit()
+    # def destroy(self):
+    #     current_time = self.base_page.get_current_date_time()
+    #     f = open("../browser_logs/browser_log_{}.txt".format(current_time), "w+")
+    #     for entry in self.wd.get_log('browser'):
+    #         f.write("{}\r\n".format(entry))
+    #     f.close()
+    #     self.wd.save_screenshot("../screenshots/screenshot_{}.png".format(current_time));
+    #     self.wd.quit()
 
