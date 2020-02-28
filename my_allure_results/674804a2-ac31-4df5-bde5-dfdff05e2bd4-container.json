@@ -1,0 +1,1 @@
+{"uuid": "aba97f8f-102a-4e4d-99ab-3fa8987b8c93", "children": ["f0b7f396-3e54-4e94-9bcf-5f7d68a191df"], "befores": [{"name": "run_browser_in_docker", "status": "passed", "start": 1582896964554, "stop": 1582896975196}], "afters": [{"name": "run_browser_in_docker::0", "status": "passed", "start": 1582896984266, "stop": 1582896984631}], "start": 1582896964554, "stop": 1582896984631}
