@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import time
-# import config_variables
+import config_variables
 
 
 # def test_google(driver):
@@ -10,7 +10,7 @@ import time
 
 def test_user_interface(app):
     current_time = ""
-    app.authorization.login("aaaaa", "1111")
+    app.authorization.login(config_variables.LOGIN, config_variables.PASSWORD)
     # app.sidebar.check_menu_load(["База знаний", "Сотрудники", "Заявки", "Клиенты", "Активы", "Настройки"])
 #     # app.sidebar.click_sidebar_item("Настройки")
 #     # app.settings.click_menu_by_text(["Справочники", "Роли"])
