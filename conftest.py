@@ -60,3 +60,22 @@ def app(driver):
     global fixture
     fixture = Application(driver)
     return fixture
+
+
+def pytest_addoption(parser):
+    parser.addoption(
+        "--context_1.1", action="store", default="NoParam", help="my option: type1 or type2"
+    )
+    parser.addoption(
+        "--context_2.1", action="store", default="NoParam", help="my option: type1 or type2"
+    )
+
+
+@pytest.fixture(scope="module")
+def context_1_1(request):
+    return request.config.getoption("--context_1.1")
+
+
+@pytest.fixture(scope="session")
+def context_2_1(request):
+    return request.config.getoption("--context_2.1")
