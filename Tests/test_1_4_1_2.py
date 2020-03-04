@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 import time
-import config_variables
 
 
 def test_1_4_1_2(app):
     current_time = "id_1.4.1.2"
-    app.authorization.login(config_variables.LOGIN, config_variables.PASSWORD)
-
+    app.authorization.login(app.config["LOGIN"], app.config["PASSWORD"])
 
     # Создание роли сотрудника
     app.wd.get(app.base_url + "settings/roles")
