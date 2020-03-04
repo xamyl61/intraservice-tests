@@ -5,6 +5,9 @@ from time import sleep
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 
 
 class BasePage(object):
@@ -88,7 +91,7 @@ class BasePage(object):
 
     def get_remove_btn(self):
         wd = self.app.wd
-        return wd.find_element(By.XPATH, "//div[@class=\"buttons\"]//button[contains(text(), \"Удалить\")]")
+        return wd.find_element(By.XPATH, "//*//button[contains(text(), \"Удалить\")]")
 
     def type_search(self, text, search_element):
         search_element.clear()
@@ -109,7 +112,33 @@ class BasePage(object):
 
     def check_element_was_removed(self, ):
         el_texts = self.get_no_record_text().text
-        assert el_texts == "No records available."
+        assert el_texts == "Нет доступных записей"
+
+    def check_remove_notification_message(self):
+        wd = self.app.wd
+        el = wd.find_element(By.CSS_SELECTOR, ".k-notification-container-animating "
+                                              ".k-notification-success .k-notification-content div div")
+        assert el.text == "Успешно удалено"
+
+    def check_success_notification_message(self):
+        wd = self.app.wd
+        el = wd.find_element(By.CSS_SELECTOR, ".k-notification-group")
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", el.get_attribute('innerHTML'))
+        # return wd.find_element(By.XPATH, "//*[contains(text(), \"Выполнено успешно\")]")
+        # print("!!!!!!!")
+        # print("el.text: ", el.text)
+        # print("!!!!!!!")
+        # assert el.text == "Выполнено успешно"
+        TIMEOUT = 5
+        WebDriverWait(self.app.wd, TIMEOUT).until(
+            EC.text_to_be_present_in_element(
+                [By.CSS_SELECTOR, ".k-notification-success .k-notification-content div div"],
+                "Выполнено успешно"))
+
+
+
+
+
 
 
 

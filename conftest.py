@@ -2,6 +2,7 @@ import time
 import docker
 import pytest
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities  # for remote selenium
 
@@ -28,28 +29,46 @@ def run_browser_in_docker():
 
 @pytest.fixture(scope='session',
                 params=[
-                    # webdriver.Chrome,
-                    # webdriver.Firefox,
                     webdriver.Remote
                 ],
                 ids=[
-                    # 'Chrome',
-                    # 'Firefox',
                     'Remote_Chrome'
                 ])
 def driver(request):
+    # # Create a new instance of a driver
+    # driver = request.param(
+    #     command_executor='http://localhost:{}/wd/hub'.format(slenium_hub_port),
+    #     desired_capabilities=DesiredCapabilities.CHROME)
+    # driver.implicitly_wait(30)
+    # yield driver
+    # driver.quit()
+
+    options = webdriver.ChromeOptions()
+    prefs = {"profile.default_content_setting_values.notifications": 2}
+    options.add_experimental_option("prefs", prefs)
+    capabilities = options.to_capabilities()
+
     # Create a new instance of a driver
     driver = request.param(
         command_executor='http://localhost:{}/wd/hub'.format(slenium_hub_port),
-        desired_capabilities=DesiredCapabilities.CHROME)
+        desired_capabilities=capabilities)
     driver.implicitly_wait(30)
     yield driver
     driver.quit()
 
-# for local run with browser
+
+
+
+
+# # for local run with browser
 # @pytest.fixture(scope='session')
 # def driver():
-#     driver = webdriver.Chrome("/Users/alexanderonishchenko/Documents/intraservice-tests/chromedriver_mac64")
+#     chrome_options = webdriver.ChromeOptions()
+#     prefs = {"profile.default_content_setting_values.notifications": 2}
+#     chrome_options.add_experimental_option("prefs", prefs)
+#     driver = webdriver.Chrome(chrome_options=chrome_options,
+#                               executable_path=r'/Users/alexanderonishchenko/Documents/intraservice-tests'
+#                                               r'/chromedriver_mac64')
 #     driver.implicitly_wait(30)
 #     driver.maximize_window()
 #     return driver

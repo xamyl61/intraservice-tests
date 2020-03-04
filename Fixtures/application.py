@@ -19,6 +19,7 @@ from Pages.settings.settings_business_process_card import SettingsBusinessProces
 from Pages.dashboard import Dashboard
 from Pages.client_portal import ClientPortal
 from Pages.tasks import Tasks
+from Pages.settings.usergroups import UserGroups
 
 
 class Application:
@@ -47,6 +48,7 @@ class Application:
         self.dashboard = Dashboard(self)
         self.client_portal = ClientPortal(self)
         self.tasks = Tasks(self)
+        self.usergroups = UserGroups(self)
 
         self.base_url = 'https://is5.intra5.ru/'
 

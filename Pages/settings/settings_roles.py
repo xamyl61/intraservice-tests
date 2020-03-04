@@ -54,7 +54,7 @@ class SettingsRoles(object):
 
     def get_remove_btn(self):
         wd = self.app.wd
-        return wd.find_element(By.XPATH, "//div[@class=\"buttons\"]//button[contains(text(), \"Удалить\")]")
+        return wd.find_element(By.XPATH, "//*[contains(text(), \"Удалить\")]")
 
     def get_roles(self):
         wd = self.app.wd

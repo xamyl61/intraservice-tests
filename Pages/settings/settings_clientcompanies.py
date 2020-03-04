@@ -49,7 +49,7 @@ class SettingsClientCompanies(object):
 
     def get_domen(self):
         wd = self.app.wd
-        return wd.find_element(By.XPATH, "//span[text()=\"Домен\"]//following::kendo-multiselect//input")
+        return wd.find_element(By.XPATH, "//span[text()=\"Домен \"]//following::kendo-multiselect//input")
 
     def get_employes_count(self):
         wd = self.app.wd
@@ -66,6 +66,10 @@ class SettingsClientCompanies(object):
     def get_search(self):
         wd = self.app.wd
         return wd.find_element(By.ID, "clientCompanyGridState_smart-search-input")
+
+    def get_sorted_id(self):
+        wd = self.app.wd
+        return wd.find_element(By.XPATH, "//*[@class=\"k-grid-aria-root\"]//thead//th[2]")
 
     # ACTIONS WITH ELEMENTS
     def click_create_btn(self):
@@ -131,6 +135,10 @@ class SettingsClientCompanies(object):
     def remove_companies(self, text):
         search_element = self.get_search()
         self.app.base_page.remove_element_in_table(text, search_element)
+
+    def click_sorted_id(self):
+        el = self.get_sorted_id()
+        el.click()
 
     # ASSERTS
     def check_value_in_list(self, text):
