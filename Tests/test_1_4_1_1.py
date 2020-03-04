@@ -4,7 +4,7 @@ import time
 
 def test_1_4_1_1(app):
     current_time = "id_1.4.1.1"
-    app.authorization.login(app.settings["LOGIN"], app.settings["PASSWORD"])
+    app.authorization.login(app.config["LOGIN"], app.config["PASSWORD"])
 
     # Проверка создание роли клиента
     app.sidebar.click_sidebar_item("Настройки")

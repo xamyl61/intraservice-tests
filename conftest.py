@@ -79,8 +79,8 @@ def driver(request):
 def app(driver):
     global fixture
     with open('settings.json') as json_data_file:
-        settings = json.load(json_data_file)
-    fixture = Application(driver, settings)
+        config = json.load(json_data_file)
+    fixture = Application(driver, config)
     return fixture
 
 

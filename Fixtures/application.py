@@ -24,7 +24,7 @@ from Pages.settings.usergroups import UserGroups
 
 class Application:
 
-    def __init__(self, driver, settings):
+    def __init__(self, driver, config):
 
         # self.wd = webdriver.Chrome("/Users/alexanderonishchenko/Documents/intraservice-tests/chromedriver_mac64")
         self.wd = driver
@@ -51,7 +51,7 @@ class Application:
         self.usergroups = UserGroups(self)
 
         self.base_url = 'https://is5.intra5.ru/'
-        self.settings = settings
+        self.config = config
 
 
     # def destroy(self):
