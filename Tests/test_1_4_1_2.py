@@ -8,8 +8,6 @@ def test_1_4_1_2(app):
 
     # Создание роли сотрудника
     app.wd.get(app.base_url + "settings/roles")
-    print("!!!!!!!")
-    print("app.wd.title", app.wd.title)
     app.settings_roles.click_create_btn()
     app.settings_roles.type_name("РольИсп1_" + current_time)
     app.settings_roles.type_description("это_описание_роли_" + current_time)
@@ -108,6 +106,8 @@ def test_1_4_1_2(app):
     app.base_page.refresh_page()
     app.settings_roles.check_roles_was_removed([
         "РольИсп1_" + current_time])
+
+    app.authorization.logout()
 
 
 

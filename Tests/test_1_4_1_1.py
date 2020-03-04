@@ -107,3 +107,5 @@ def test_1_4_1_1(app):
     app.base_page.refresh_page()
     app.settings_roles.check_roles_was_removed([
         "РольКл1_" + current_time])
+
+    app.authorization.logout()
