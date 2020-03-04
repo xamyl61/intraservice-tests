@@ -23,6 +23,10 @@ class UserGroups(object):
         wd = self.app.wd
         return wd.find_element(By.XPATH, "//button[text()=\" Создать \"]")
 
+    def get_search(self):
+        wd = self.app.wd
+        return wd.find_element(By.ID, "userGroupGridState_smart-search-input")
+
     # ACTION ELEMENTS
     def click_create_btn(self):
         el = self.get_create_btn()
@@ -36,3 +40,7 @@ class UserGroups(object):
     def click_save_btn(self):
         el = self.get_save_btn()
         el.click()
+
+    def remove_companies(self, text):
+        search_element = self.get_search()
+        self.app.base_page.remove_element_in_table(text, search_element)

@@ -25,12 +25,7 @@ from Pages.settings.usergroups import UserGroups
 class Application:
 
     def __init__(self, driver, config):
-
-        # self.wd = webdriver.Chrome("/Users/alexanderonishchenko/Documents/intraservice-tests/chromedriver_mac64")
         self.wd = driver
-        # self.wd.implicitly_wait(30)
-        # self.wd.maximize_window()
-
         self.helpers = Helpers(self)
         self.authorization = AuthorizationHelper(self)
         self.base_page = BasePage(self)

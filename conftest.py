@@ -36,14 +36,6 @@ def run_browser_in_docker():
                     'Remote_Chrome'
                 ])
 def driver(request):
-    # # Create a new instance of a driver
-    # driver = request.param(
-    #     command_executor='http://localhost:{}/wd/hub'.format(slenium_hub_port),
-    #     desired_capabilities=DesiredCapabilities.CHROME)
-    # driver.implicitly_wait(30)
-    # yield driver
-    # driver.quit()
-
     options = webdriver.ChromeOptions()
     prefs = {"profile.default_content_setting_values.notifications": 2}
     options.add_experimental_option("prefs", prefs)
@@ -58,8 +50,13 @@ def driver(request):
     driver.quit()
 
 
-
-
+@pytest.fixture(scope="session")
+def app(driver):
+    global fixture
+    with open('settings.json') as json_data_file:
+        config = json.load(json_data_file)
+    fixture = Application(driver, config)
+    return fixture
 
 # # for local run with browser
 # @pytest.fixture(scope='session')
@@ -74,14 +71,11 @@ def driver(request):
 #     driver.maximize_window()
 #     return driver
 
-
-@pytest.fixture(scope="session")
-def app(driver):
-    global fixture
-    with open('settings.json') as json_data_file:
-        config = json.load(json_data_file)
-    fixture = Application(driver, config)
-    return fixture
+# @pytest.fixture(scope="session")
+# def app(driver):
+#     global fixture
+#     fixture = Application(driver)
+#     return fixture
 
 
 def pytest_addoption(parser):

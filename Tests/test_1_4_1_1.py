@@ -7,8 +7,7 @@ def test_1_4_1_1(app):
     app.authorization.login(app.config["LOGIN"], app.config["PASSWORD"])
 
     # Проверка создание роли клиента
-    app.sidebar.click_sidebar_item("Настройки")
-    app.settings.click_menu_by_text(["Справочники", "Роли"])
+    app.wd.get(app.base_url + "settings/roles")
     app.settings_roles.click_create_btn()
     app.settings_roles.type_name("РольКл1_" + current_time)
     app.settings_roles.type_description("это_описание_роли_клиента_Автотест")
