@@ -24,7 +24,7 @@ from Pages.settings.usergroups import UserGroups
 
 class Application:
 
-    def __init__(self, driver):
+    def __init__(self, driver, settings):
 
         # self.wd = webdriver.Chrome("/Users/alexanderonishchenko/Documents/intraservice-tests/chromedriver_mac64")
         self.wd = driver
@@ -51,6 +51,8 @@ class Application:
         self.usergroups = UserGroups(self)
 
         self.base_url = 'https://is5.intra5.ru/'
+        self.settings = settings
+
 
     # def destroy(self):
     #     current_time = self.base_page.get_current_date_time()

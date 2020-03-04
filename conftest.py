@@ -1,3 +1,4 @@
+import json
 import time
 import docker
 import pytest
@@ -77,7 +78,9 @@ def driver(request):
 @pytest.fixture(scope="session")
 def app(driver):
     global fixture
-    fixture = Application(driver)
+    with open('settings.json') as json_data_file:
+        settings = json.load(json_data_file)
+    fixture = Application(driver, settings)
     return fixture
 
 

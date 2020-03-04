@@ -1,40 +1,35 @@
 # -*- coding: utf-8 -*-
 import time
+import config_variables
 
 
-def test_1_4_1_1(app):
-    current_time = "id_1.4.1.1"
-    app.authorization.login(app.settings["LOGIN"], app.settings["PASSWORD"])
+def test_1_4_1_2(app):
+    current_time = "id_1.4.1.2"
+    app.authorization.login(config_variables.LOGIN, config_variables.PASSWORD)
 
-    # Проверка создание роли клиента
-    app.sidebar.click_sidebar_item("Настройки")
-    app.settings.click_menu_by_text(["Справочники", "Роли"])
+    # Создание роли сотрудника
     app.settings_roles.click_create_btn()
-    app.settings_roles.type_name("РольКл1_" + current_time)
-    app.settings_roles.type_description("это_описание_роли_клиента_Автотест")
-    app.settings_roles.choose_role("Клиент")
+    app.settings_roles.type_name("РольИсп1_" + current_time)
+    app.settings_roles.type_description("это_описание_роли_" + current_time)
+    app.settings_roles.choose_role("Сотрудник")
     app.settings_roles.choose_radio_by_label_text(("Заявки: ", "Только свои"))
+    app.settings_roles.choose_radio_by_label_text(("Активы: ", "Нет доступа"))
     app.settings_roles.choose_radio_by_label_text(("База знаний: ", "Нет доступа"))
-    app.settings_roles.choose_radio_by_label_text(("Пользователи: ", "Только свой профиль"))
+    app.settings_roles.choose_radio_by_label_text(("Сотрудники и группы: ", "Просмотр"))
+    app.settings_roles.choose_radio_by_label_text(("Клиенты (компании, люди): ", "Просмотр"))
     app.settings_roles.click_save_new_role_btn()
     app.base_page.refresh_page()
-    app.settings_roles.check_value_in_list("РольКл1_" + current_time)
+    app.settings_roles.check_value_in_list("РольИсп1_" + current_time)
 
-    # Создание компании
-    app.wd.get(app.base_url + "settings/clientcompanies")
-    app.settings_clientcompanies.click_create_btn()
-    app.settings_clientcompanies.type_name("КомпанияКлиента1_" + current_time)
-    app.settings_clientcompanies.type_description("Описание_" + current_time)
-    app.settings_clientcompanies.type_address("Адрес_" + current_time)
-    app.settings_clientcompanies.type_web("www.testcompany.test")
-    app.settings_clientcompanies.type_email("tes@emailautomated.test")
-    app.settings_clientcompanies.type_additional_info("Некоторая дополнительная информация")
-    app.settings_clientcompanies.type_tags("тег_" + current_time)
-    app.settings_clientcompanies.type_domen("www")
-    app.settings_clientcompanies.type_employes_count("2")
-    app.settings_clientcompanies.click_save_btn()
+    # Создание группы
+    app.sidebar.click_sidebar_item("Настройки")
+    app.settings.click_menu_by_text(["Группы"])
+    app.usergroups.click_create_btn()
+    app.usergroups.type_name("Группа1_" + current_time)
+    app.usergroups.click_save_btn()
+    app.base_page.click_popup_yes_btn()
 
-    # # Создание клиента 1
+    # Создание клиента 1
     app.wd.get(app.base_url + "settings/users/clients")
     app.settings_usersclients.click_create_btn()
     app.settings_usersclients.type_lastname("ФамилияКл1" + current_time)
@@ -103,8 +98,19 @@ def test_1_4_1_1(app):
     # Удаление роли сотрудника
     app.wd.get(app.base_url + "settings/roles")
     app.settings_roles.remove_role([
-        "РольКл1_" + current_time])
+        "РольКл1_" + current_time,
+        "РольИсп1_" + current_time])
     app.base_page.click_popup_yes_btn()
     app.base_page.refresh_page()
     app.settings_roles.check_roles_was_removed([
-        "РольКл1_" + current_time])
+        "РольКл1_" + current_time,
+        "РольИсп1_" + current_time])
+
+
+
+
+
+
+
+
+
