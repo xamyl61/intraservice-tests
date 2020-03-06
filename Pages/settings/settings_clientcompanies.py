@@ -130,7 +130,7 @@ class SettingsClientCompanies(object):
 
     def click_save_btn(self):
         self.get_save_btn().click()
-        time.sleep(3)
+        # time.sleep(3)
 
     def remove_companies(self, text):
         search_element = self.get_search()

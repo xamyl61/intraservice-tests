@@ -70,7 +70,8 @@ def app(driver):
 #     driver.implicitly_wait(30)
 #     driver.maximize_window()
 #     return driver
-
+#
+#
 # @pytest.fixture(scope="session")
 # def app(driver):
 #     global fixture

@@ -2,6 +2,7 @@
 import time
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 
 
 class SettingsRoles(object):
@@ -60,6 +61,17 @@ class SettingsRoles(object):
         wd = self.app.wd
         return wd.find_elements(By.XPATH, "//div[@class=\"k-grid-aria-root\"]//table//tbody//tr//td[3]")
 
+    def get_custom_radio_by_label_text(self, label):
+        wd = self.app.wd
+        el = wd.find_element(By.XPATH, "//*[text()=\"" + label + "\"]/following-sibling::*"
+                                                                 "//*[@class=\"k-switch-container\"]")
+        el.click()
+
+    def get_time_update(self):
+        wd = self.app.wd
+        return wd.find_element(By.CSS_SELECTOR, ".k-input.k-formatted-value")
+
+
     # ACTIONS WITH ELEMENTS
     def click_create_btn(self):
         time.sleep(2)
@@ -85,7 +97,7 @@ class SettingsRoles(object):
 
     def click_save_new_role_btn(self):
         self.get_save().click()
-        time.sleep(3)
+        # time.sleep(3)
 
     def remove_role(self, role_list):
         for role in role_list:
@@ -94,6 +106,22 @@ class SettingsRoles(object):
                 ".//ancestor::tr//td[1]//label")
             checkbox.click()
         self.get_remove_btn().click()
+
+    def type_time_update(self, text):
+        name = self.get_time_update()
+        name.clear()
+        name.send_keys(text)
+
+    def type_search_filter(self, text):
+        element = self.get_search()
+        element.send_keys(text)
+        time.sleep(1)
+        element.send_keys(Keys.ARROW_DOWN)
+        element.send_keys(Keys.RETURN)
+        time.sleep(4)
+
+    def click_table_cell_name(self):
+        self.get_table_cell_name()[0].click()
 
     # ASSERTS
     def check_value_in_list(self, text):

@@ -157,7 +157,7 @@ class SettingsUsersEmployees(object):
 
     def click_save_btn(self):
         self.get_save_btn().click()
-        time.sleep(3)
+        # time.sleep(3)
 
     def type_search(self, text):
         search = self.get_search()
