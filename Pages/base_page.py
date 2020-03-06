@@ -118,7 +118,7 @@ class BasePage(object):
         wd = self.app.wd
         selector = "//*[@class=\"k-notification-content\"]//ng-component/div/div"
         wait = WebDriverWait(wd, 30)
-        wait.until(EC.visibility_of_element_located((By.XPATH, selector)))
+        wait.until(EC.element_to_be_clickable((By.XPATH, selector)))
         el = wd.find_element(By.XPATH, selector)
         # import pdb
         # pdb.set_trace()
