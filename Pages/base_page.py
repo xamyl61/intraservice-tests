@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+import pdb
 import time
 from datetime import datetime
 from time import sleep
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
 class BasePage(object):
@@ -68,7 +71,7 @@ class BasePage(object):
     def click_popup_yes_btn(self):
         wd = self.app.wd
         wd.find_element(By.XPATH, "//button[@class=\"k-button ng-star-inserted\"][text()=\"Да\"]").click()
-        time.sleep(4)
+        # time.sleep(4)
 
     def click_remove_modal_yes_btn(self):
         wd = self.app.wd
@@ -88,7 +91,7 @@ class BasePage(object):
 
     def get_remove_btn(self):
         wd = self.app.wd
-        return wd.find_element(By.XPATH, "//div[@class=\"buttons\"]//button[contains(text(), \"Удалить\")]")
+        return wd.find_element(By.XPATH, "//*//button[contains(text(), \"Удалить\")]")
 
     def type_search(self, text, search_element):
         search_element.clear()
@@ -109,7 +112,26 @@ class BasePage(object):
 
     def check_element_was_removed(self, ):
         el_texts = self.get_no_record_text().text
-        assert el_texts == "No records available."
+        assert el_texts == "Нет доступных записей"
+
+    def check_notification_success(self, text_param):
+        wd = self.app.wd
+        selector = "//*[@class=\"k-notification-content\"]//ng-component/div/div"
+        wait = WebDriverWait(wd, 30)
+        wait.until(EC.element_to_be_clickable((By.XPATH, selector)))
+        el = wd.find_element(By.XPATH, selector)
+        # import pdb
+        # pdb.set_trace()
+        assert el.text == text_param, "Текст нотификации в скобках: " + "(" + el.text + ")"
+        wd.implicitly_wait(0)
+        wait.until(EC.invisibility_of_element_located((By.XPATH, selector)))
+        wd.implicitly_wait(30)
+        time.sleep(.1)
+
+
+
+
+
 
 
 

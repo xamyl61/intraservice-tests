@@ -70,6 +70,35 @@ class SettingsUsersEmployees(object):
         wd = self.app.wd
         return wd.find_element(By.XPATH, "//div[@class=\"buttons\"]//button[text()=\" Удалить \"]")
 
+    def get_group(self):
+        wd = self.app.wd
+        return wd.find_element(By.XPATH,
+                               "//span[text()=\"Группа\"]//following::kendo-dropdownlist//span[@class=\"k-input\"]")
+
+    def get_group_search(self):
+        wd = self.app.wd
+        return wd.find_element(By.XPATH, "//*[@class=\"k-animation-container k-animation-container-shown\"]//input")
+
+    def get_table_cell_name(self):
+        wd = self.app.wd
+        return wd.find_elements(By.XPATH, "//div[@class=\"k-grid-aria-root\"]//tr//td[3]")
+
+    def get_table_cell_secondname(self):
+        wd = self.app.wd
+        return wd.find_elements(By.XPATH, "//div[@class=\"k-grid-aria-root\"]//tr//td[4]")
+
+    def get_table_cell_lastname(self):
+        wd = self.app.wd
+        return wd.find_elements(By.XPATH, "//div[@class=\"k-grid-aria-root\"]//tr//td[5]")
+
+    def get_table_cell_email(self):
+        wd = self.app.wd
+        return wd.find_elements(By.XPATH, "//div[@class=\"k-grid-aria-root\"]//tr//td[6]")
+
+    def get_clear_search_icon(self):
+        wd = self.app.wd
+        return wd.find_element(By.CSS_SELECTOR, ".clear-btn")
+
     # ACTIONS WITH ELEMENTS
     def click_create_btn(self):
         time.sleep(2)
@@ -94,6 +123,14 @@ class SettingsUsersEmployees(object):
         name = self.get_middlename()
         name.clear()
         name.send_keys(text)
+
+    def type_group(self, text):
+        self.get_group().click()
+        search = self.get_group_search()
+        search.clear()
+        search.send_keys(text)
+        time.sleep(2)
+        search.send_keys(Keys.RETURN)
 
     def type_email(self, text):
         name = self.get_email()
@@ -120,7 +157,7 @@ class SettingsUsersEmployees(object):
 
     def click_save_btn(self):
         self.get_save_btn().click()
-        time.sleep(3)
+        # time.sleep(3)
 
     def type_search(self, text):
         search = self.get_search()
@@ -139,6 +176,18 @@ class SettingsUsersEmployees(object):
     def click_remove_btn(self):
         self.get_remove_btn().click()
 
+    def click_table_cell_name(self):
+        self.get_table_cell_name()[0].click()
+
+    def click_clear_search(self):
+        el = self.get_search()
+        el.send_keys(" ")
+        self.get_clear_search_icon().click()
+
+    def remove_employee(self, text):
+        search_element = self.get_search()
+        self.app.base_page.remove_element_in_table(text, search_element)
+
     # ASSERTS
     def check_value_in_list(self, text):
         el_list = self.get_table_cell_name()
@@ -148,6 +197,17 @@ class SettingsUsersEmployees(object):
     def check_employee_was_removed(self):
         el_texts = self.get_no_record_text().text
         assert el_texts == "No records available."
+
+    def check_changed_fields(self, name, second_name, last_name, email):
+        name_val = self.get_table_cell_name()[0].text
+        second_name_val = self.get_table_cell_secondname()[0].text
+        last_name_val = self.get_table_cell_lastname()[0].text
+        email_val = self.get_table_cell_email()[0].text
+
+        assert name_val == name
+        assert second_name_val == second_name
+        assert last_name_val == last_name
+        assert email_val == email
 
 
 
