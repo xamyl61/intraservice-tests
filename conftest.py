@@ -101,7 +101,7 @@ def context_1_2(request):
     return request.config.getoption("--context_1.2")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def context_2_1(request):
     return request.config.getoption("--context_2.1")
 
